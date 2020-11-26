@@ -66,7 +66,7 @@ int read_digit() {
 
 int count_split(char* str, int count) {
 	for (int i = 0; i < strlen(str) + 1; ++i) {
-		if (str[i] == ' ' || str[i] == '\0') { --count; }
+		if (str[i] == ' ') { --count; }
 	}
-	return count != 0;
+	return count == 0;
 }

@@ -11,6 +11,7 @@ int main() {
 		char* str = (char*)NULL;
 		char** split = (char**)NULL;
 		ValueType value = (ValueType)NULL;
+		bool check = false;
 
 		printf("\n");
 		printf("1. Add node\n");
@@ -30,16 +31,23 @@ int main() {
 		case 1:
 			printf("Enter: [ key : value ]\n");
 			str = readline();
-			if (strlen(str) < 3 || count_split(str, 2)) { free(str); break; }
-			split = split_string(str);
-			if (InsertTreeValueByKey(&tree, (KeyType)split[0], (ValueType)split[1])) {
+			if (!strlen(str)) { free(str); break; }
+			if (count_split(str, 2)) {
+				split = split_string(str);
+				check = InsertTreeValueByKey(&tree, (KeyType)split[0], (ValueType)split[1]);
+			}
+			else {
+				split = split_string(str);
+				check = InsertTreeValueByKey(&tree, (KeyType)split[0], (ValueType)"");
+			}
+			free(str);
+			free(split);
+			if (check) {
 				printf("Node successful added\n");
 			}
 			else {
 				printf("Node with this key is already in tree\n");
 			}
-			free(str);
-			free(split);
 			break;
 
 		case 2:

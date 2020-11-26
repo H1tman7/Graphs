@@ -1,8 +1,9 @@
 
 #include "Tree.h"
 
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-
+#ifndef max
+	#define max(a,b) (((a) > (b)) ? (a) : (b))
+#endif
 
 struct __TreeNode {
 	KeyType key;
@@ -49,8 +50,12 @@ bool DeleteTreeNodeByKey(Tree* root, KeyType key) {
 		return true;
 	}
 
-	if (tree == DeleteTreeNode(tree, key)) { return false; }
-	return true;
+	else if (SearchTreeNode(tree, key) != (TreeNode*)NULL) {
+		DeleteTreeNode(tree, key);
+		return true;
+	}
+
+	return false;
 }
 
 ValueType GetTreeValueByKey(Tree root, KeyType key) {
@@ -138,7 +143,12 @@ void PrintTreeNode(Tree root, int c) {
 
 	PrintTreeNode(root->right, ++c);
 	for (int i = 0; i < c; ++i) { printf(" "); }
-	printf("%s:%s\n", root->key, root->value);
+	if (!strlen(root->value)) {
+		printf("%s\n", root->key);
+	}
+	else {
+		printf("%s:%s\n", root->key, root->value);
+	}
 	PrintTreeNode(root->left, ++c);
 	return;
 }
@@ -235,7 +245,7 @@ void FreeTreeNode(void* root) {
 }
 
 Tree DeleteTreeNode(Tree root, KeyType key) {
-	if (root == (TreeNode*)NULL) { return (Tree)NULL; }
+	if (root == (Tree)NULL) { return (Tree)NULL; }
 
 	int cmp_value = strcmp(key, root->key);
 	if (cmp_value > 0) {
