@@ -1,6 +1,5 @@
-
+#include "string.h"
 #include "main.h"
-
 
 int main() {
 	Tree tree = InitTree();
