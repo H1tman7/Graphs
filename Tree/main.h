@@ -12,4 +12,4 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif //_MAIN_H
+#endif
